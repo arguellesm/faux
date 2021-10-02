@@ -1,7 +1,7 @@
 # Faux
 Faux is a tool aimed to reduce misinformation along the web.
 
-It analyzes texts and headlines to categorize them as fake news, clickbait articles or semingly-normal-things. On top of that, it provides information about how likely this prediction is based on its source and topic (health, economics, etc).
+It analyzes texts and headlines to categorize them as fake news, clickbait articles or seemingly-normal-things. On top of that, it provides information about how likely this prediction is based on its source and topic (health, economics, etc).
 
 
 ### Why Faux
