@@ -20,4 +20,4 @@ updated and refined to achieve the best possible outcome.
 
 ### Read the docs!
 
-Feel free to read a bit more about the project [docs/README.md](here).
+Feel free to read a bit more about the project [here](docs/README.md).
