@@ -7,7 +7,7 @@ clickbait articles or seemingly-normal-things. On top of that,
 it provides information about how likely this prediction is based 
 on its source and topic (health, economics, etc).
 
-### Why and how
+## Why and how
 
 We've lately seen an increase in misleading information presented 
 as true in the media. This project seeks an easy-access to 
@@ -18,6 +18,6 @@ Faux takes news and headlines as input and applies heuristics to
 classify them. Being a cloud service, it's constantly being 
 updated and refined to achieve the best possible outcome.
 
-### Read the docs!
+## Read the docs!
 
 Feel free to read a bit more about the project [here](docs/README.md).
