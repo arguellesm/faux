@@ -45,7 +45,7 @@ will be looking at ramen recipes.
 *Note*: If Carla had been on desktop, she could have used the
 faux browser plugin instead.
 
-![user-journey](docs/carla-user-journey.png)
+![user-journey](img/carla-user-journey.png)
 Illustration by [Natasha Remarchuk](https://icons8.com/illustrations/author/5e7e24ce01d0360013bb7479)
 from [Ouch!](https://icons8.com/illustrations)
 
