@@ -1,4 +1,4 @@
 lenguaje: python
-enttidades:
+entidades:
   - src/article.py
   - src/globals.py
