@@ -1,5 +1,4 @@
 import globals
-from datetime import datetime
 
 class Article:
     def __init__(self, headline, author, content, topic, origin, date = datetime.now()):
