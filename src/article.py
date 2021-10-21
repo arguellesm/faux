@@ -20,6 +20,7 @@ class Article:
                 raise ValueError('Author cannot be None')
             else:
                 raise ValueError('Author cannot be larger than ' + str(globals.AUTHOR_MAX_LENGHT))
+
         if(content and len(content) > 0):
             self.content = content
         else:
