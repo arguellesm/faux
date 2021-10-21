@@ -6,7 +6,6 @@ class Article:
         if(len(headline) < globals.HEADLINE_MAX_SIZE and headline):
             self.headline = headline
             self.ID = self.headline[0:3] + "-" + self.date.strftime("%-d%-m%-y%-H%-M%-S")
-
         else:
             if(not headline):
                 raise ValueError('Headline cannot be empty')
