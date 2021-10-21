@@ -1,53 +1,89 @@
 import globals
+import itertools
 
 class Article:
-    def __init__(self, headline='', content='', author='', topic='', source=''):
-        self.date = date
-        if(len(headline) < globals.HEADLINE_MAX_SIZE and headline):
-            self.headline = headline
-            self.ID = self.headline[0:3] + "-" + self.date.strftime("%-d%-m%-y%-H%-M%-S")
+    """
+    Class which contains all the data from an article
+
+    Attributes
+    ----------
+    id_iter : itertools
+        Iterator used to obtain an unique id
+
+    """
+
+    id_iter = itertools.count()
+
+    def __init__(self, headline='', author='', content='', topic='', source=''):
+        """
+        Constructor of Article
+
+        Parameters
+        ------
+        headline : string, default=''
+        author : string, default=''
+        content : string, default=''
+        topic : string, default=''
+        source : string, default=''
+
+        Raises
+        ------
+        ValueError
+            Headline or author is not valid
+
+        """
+        self._id = next(Article.id_iter)
+        self._content = content
+        self._topic = topic
+        self._source = source
+        if(len(headline) < globals.HEADLINE_MAX_SIZE):
+            self._headline = headline
         else:
-            if(not headline):
-                raise ValueError('Headline cannot be empty')
-            else:
-                raise ValueError('Headline cannot be larger than ' + str(globals.HEADLINE_MAX_SIZE))
+            raise ValueError('Headline cannot be larger than ' + str(globals.HEADLINE_MAX_SIZE))
         
-        if(author and globals.AUTHOR_MAX_LENGHT > len(author) > 0):
-            self.author = author
+        if(globals.AUTHOR_MAX_LENGHT > len(author) >= globals.INVALID):
+            self._author = author
         else:
-            if(not author):
-                raise ValueError('Author cannot be None')
-            else:
-                raise ValueError('Author cannot be larger than ' + str(globals.AUTHOR_MAX_LENGHT))
+            raise ValueError('Author cannot be larger than ' + str(globals.AUTHOR_MAX_LENGHT))
 
-        if(content and len(content) > 0):
-            self.content = content
-        else:
-            raise ValueError('Content cannot be None')
-        if(topic and len(topic) > 0):
-            self.topic = topic
-        else:
-            raise ValueError('Topic cannot be None')
-        if(origin and len(origin) > 0):
-            self.origin = origin
-        else:
-            raise ValueError('Origin cannot be None')
-
-    # getter functions
+    @property
     def author(self):
-        return self.author
+        """
+        Returns the author of the article
+        """
+        return self._author
     
+    @property
     def content(self):
-        return self.content
+        """
+        Returns the content of the article
+        """
+        return self._content
 
-    def origin(self):
-        return self.origin
+    @property
+    def source(self):
+        """
+        Returns the source of the article
+        """
+        return self._source
 
+    @property
     def topic(self):
-        return self.topic
+        """
+        Returns the topic of the article
+        """
+        return self._topic
 
+    @property
     def headline(self):
-        return self.headline
+        """
+        Returns the headline of the article
+        """
+        return self._headline
     
-    def ID(self):
-        return self.ID
+    @property
+    def id(self):
+        """
+        Returns the id of the article
+        """
+        return self._id
