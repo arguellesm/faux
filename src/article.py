@@ -1,7 +1,7 @@
 import globals
 
 class Article:
-    def __init__(self, headline, author, content, topic, origin, date = datetime.now()):
+    def __init__(self, headline='', content='', author='', topic='', source=''):
         self.date = date
         if(len(headline) < globals.HEADLINE_MAX_SIZE and headline):
             self.headline = headline
