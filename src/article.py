@@ -5,11 +5,18 @@ class Article:
     """
     Class which contains all the data from an article.
 
-    Attributes
+    Parameters
     ----------
-    id_iter : itertools
-        Iterator used to obtain an unique id.
-
+    headline : str, default=''
+        Article's headline.
+    author : str, default=''
+        Person who wrote the article.
+    content : str, default=''
+        Content of the article.
+    topic : str, default=''
+        Subject of the article.
+    source : str, default=''
+        Where the article comes from.
     """
 
     id_iter = itertools.count()
@@ -18,18 +25,6 @@ class Article:
         """
         Constructor of Article
 
-        Parameters
-        ------
-        headline : str, default=''
-            Article's headline.
-        author : str, default=''
-            Person who wrote the article.
-        content : str, default=''
-            Content of the article.
-        topic : str, default=''
-            Subject of the article.
-        source : str, default=''
-            Where the article comes from.
         Raises
         ------
         ValueError
