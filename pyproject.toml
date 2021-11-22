@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "faux"
+version = "0.0.3"
+description = "Factchecker API for headlines and articles."
+authors = ["arguellesm <m.arguelles28@gmail.com>"]
+license = "GPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+invoke = "^1.6.0"
+pylint = "^2.11.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
