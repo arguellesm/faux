@@ -23,6 +23,10 @@ Faux takes news and headlines as input and applies heuristics to
 classify them. Being a cloud service, it's constantly being 
 updated and refined to achieve the best possible outcome.
 
+## Requirements
+
+- Python **3.5+**.
+
 ## Dependencies
 
 Managed with [Poetry](https://python-poetry.org/), check out [`pyproject.toml`](pyproject.toml).
