@@ -1,11 +1,16 @@
 # Faux
 
-Faux is a tool aimed to reduce misinformation along the web.
+Faux is a tool aimed to reduce misinformation along the web. It analyzes 
+texts and headlines to categorize them as fake news, clickbait articles 
+or seemingly-normal-things. 
 
-It analyzes texts and headlines to categorize them as fake news, 
-clickbait articles or seemingly-normal-things. On top of that, 
-it provides information about how likely this prediction is based 
-on its source and topic (health, economics, etc).
+## Table of contents
+
+- [Why and how](https://github.com/arguellesm/faux#why-and-how)
+- [Dependencies](https://github.com/arguellesm/faux#dependencies)
+- [Installation](https://github.com/arguellesm/faux#installation)
+- [Usage](https://github.com/arguellesm/faux#usage)
+- [Documentation](https://github.com/arguellesm/faux#read-the-docs)
 
 ## Why and how
 
@@ -22,7 +27,7 @@ updated and refined to achieve the best possible outcome.
 
 Managed with [Poetry](https://python-poetry.org/), check out [`pyproject.toml`](pyproject.toml).
 
-## Install
+## Installation
 
 #### Poetry
 
