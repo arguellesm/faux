@@ -1,4 +1,9 @@
 lenguaje: python
+
 entidad:
   - src/article.py
   - src/globals.py
+
+automatizar:
+  fichero: tasks.py
+  orden: inv
