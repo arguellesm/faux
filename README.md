@@ -73,7 +73,7 @@ inv check
 Tests are located int [test](test/) and we use Pytest to run them. You can do so with:
 
 ```
-python -m pytest test
+inv test
 ```
 
 ## Read the docs!
