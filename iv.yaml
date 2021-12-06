@@ -7,3 +7,5 @@ entidad:
 automatizar:
   fichero: tasks.py
   orden: inv
+
+test: test/article_test.py
