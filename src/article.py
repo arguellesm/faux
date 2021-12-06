@@ -1,5 +1,8 @@
-import globals
+from src import globals, blacklists
 import itertools
+import pickle
+import os.path
+
 
 class Article:
     """
@@ -90,3 +93,28 @@ class Article:
         Returns the id of the article.
         """
         return self._id
+
+    def predict(self):
+        """
+        Returns how misleading the article is.
+        """
+
+        author_score = 0
+        source_score = 0
+
+        # check author
+        if self.author and self.author in blacklists.UNTRUSTED_AUTHORS:
+            author_score = 1
+
+        # check source
+        if self.source and self.source in backlists.UNTRUSTED_SOURCES:
+            source_score = 1
+
+        # check content
+        file = open(os.path.dirname(__file__)+'/../model/mnb.pkl', 'rb')
+        model = pickle.load(file)
+        file.close()
+        
+        content_score = model.predict_proba([self.content])[0][0]
+
+        return author_score, source_score, content_score

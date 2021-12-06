@@ -5,6 +5,6 @@ UNTRUSTED_SOURCES = {
     "aepnl.com"
 }
 
-UNTRSUTED_AUTHORS = {
+UNTRUSTED_AUTHORS = {
     "Jane Doe"
 }
