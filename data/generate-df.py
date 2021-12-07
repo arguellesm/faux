@@ -3,9 +3,20 @@ import json
 import os
 
 
-def get_text_and_aut(path):
+def get_text(path):
 	"""
-	Extracts text and author(s) if it has any.
+	Extracts text.
+	"""
+
+	with open(path) as f:
+		file = json.load(f)
+
+	return file['text']
+
+
+def get_author(path):
+	"""
+	Extract author(s) if there are any.
 	"""
 
 	with open(path) as f:
@@ -17,7 +28,7 @@ def get_text_and_aut(path):
 	if 'authors' in file.keys():
 		author = file['authors']
 
-	return file['text'], author
+	return author
 
 
 def generate_df():
@@ -41,41 +52,39 @@ def generate_df():
 	with open('dataset/reviews/HealthStory.json') as f:
 		history = json.load(f)
 
-	# get article information
+	# get release articles information
 	for i in release:
 		path = 'dataset/content/HealthRelease/' + i['news_id'] + '.json'
 
-		try:
-			text, author = get_text_and_aut(path)
-		except:
+		if not os.path.exists(path):
 			continue
 
+		text.append(get_text(path))
+		author.append(get_author(path))
 		headline.append(i['title'])
 		source.append(i['news_source'])
 		o_title.append(i['original_title'])
 		link.append(i['link'])
 		rating.append(i['rating'])
-		text.append(text)
-		author.append(author)
 
-	# get article information
+
+	# get history articles information
 	for i in history:
 		path = 'dataset/content/HealthStory/' + i['news_id'] + '.json'
 
-		try:
-			text, author = get_text_and_aut(path)
-		except:
+		if not os.path.exists(path):
 			continue
 
+		text.append(get_text(path))
+		author.append(get_author(path))
 		headline.append(i['title'])
 		source.append(i['news_source'])
 		o_title.append(i['original_title'])
 		link.append(i['link'])
 		rating.append(i['rating'])
-		text.append(text)
-		author.append(author)
 
-	# create pandas dataset
+
+	# create pandas dataframe
 	df = pd.DataFrame({
 		'headline' 		: headline,
 		'author'  		: author,
