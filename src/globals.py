@@ -1,2 +1,3 @@
 HEADLINE_MAX_SIZE = 250
 AUTHOR_MAX_LENGHT = 200
+MODEL_PATH = '/../model/mnb.pkl'

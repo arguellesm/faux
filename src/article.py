@@ -111,10 +111,10 @@ class Article:
             source_score = 1
 
         # check content
-        file = open(os.path.dirname(__file__)+'/../model/mnb.pkl', 'rb')
-        model = pickle.load(file)
-        file.close()
+        with open(os.path.dirname(__file__)+globals.MODEL_PATH, 'rb') as f:
+            file = f
         
+        model = pickle.load(file) 
         content_score = model.predict_proba([self.content])[0][0]
 
         return author_score, source_score, content_score
