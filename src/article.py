@@ -4,6 +4,33 @@ import pickle
 import os.path
 
 
+
+class ArticleValueError(ValueError):
+    """
+    Article creation value error.
+    """
+    pass
+
+class ArticleDependencyError(ModuleNotFoundError):
+    """
+    Missing dependencies error.
+    """
+    pass
+
+class CantLoadContentModelError(FileNotFoundError):
+    """
+    Content model loading errors.
+    """
+    pass
+
+class ContentModelError(Exception):
+    """
+    Content model parameter errors.
+    """
+    pass
+
+
+
 class Article:
     """
     Class which contains all the data from an article.
@@ -35,17 +62,17 @@ class Article:
 
         """
         if not headline and not content:
-            raise ValueError('An article must include a headline or content')
+            raise ArticleValueError('An article must include a headline or content')
 
         if(len(headline) < globals.HEADLINE_MAX_SIZE):
             self._headline = headline
         else:
-            raise ValueError('Headline cannot be larger than ' + str(globals.HEADLINE_MAX_SIZE))
+            raise ArticleValueError('Headline cannot be larger than {}'.format(globals.HEADLINE_MAX_SIZE))
         
         if(globals.AUTHOR_MAX_LENGHT > len(author)):
             self._author = author
         else:
-            raise ValueError('Author cannot be larger than ' + str(globals.AUTHOR_MAX_LENGHT))
+            raise ArticleValueError('Author cannot be larger than {}'.format(globals.AUTHOR_MAX_LENGHT))
 
         self._id = next(Article.id_iter)
         self._content = content
@@ -111,10 +138,19 @@ class Article:
             source_score = 1
 
         # check content
-        with open(os.path.dirname(__file__)+globals.MODEL_PATH, 'rb') as f:
-            file = f
+        filename = os.path.dirname(__file__)+globals.MODEL_PATH
         
-        model = pickle.load(file) 
-        content_score = model.predict_proba([self.content])[0][0]
+        try:
+            with open(filename, 'rb') as f:
+                model = pickle.load(f)
+        except FileNotFoundError as e:
+            raise(CantLoadContentModelError('Unable to load {}: {}'.format(filename, e)))
+        except ModuleNotFoundError as e:
+            raise(ArticleDependenciesError('Missing module: {}'.format(e)))
+
+        try:
+            content_score = model.predict_proba([self.content])[0][0]
+        except Exception as e:
+            raise(ContentModelError('Wrong parameter: {}'.format(e)))
 
         return author_score, source_score, content_score
