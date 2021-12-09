@@ -1,91 +1,128 @@
 ## Development tools and why
 
-### [Poetry](https://python-poetry.org/)
+### Dependency management
 
-We use **Poetry** as a dependency management tool to keep track
-of the libraries needed to build the project. This makes it
-easier for anyone to replicate the project.
+A tool for dependency management was needed to keep track
+of the required libraries for building the project and making 
+them easy to install for anyone. 
 
-The main alternatives to Poetry are Pip and Pipenv:
+These were the criteria considered when choosing one:
+- Common within the Python community
+- Ease of use
+- Simplicity
 
-- [Pip](https://pypi.org/project/pip/)
+The main alternatives for managing dependencies in Python 
+were:
+  
+- [**Pipenv**](https://pipenv.pypa.io/en/latest/)
+  
+  A dependency manager that seeks to merge the
+  capabilities of `pip` and `pipenv`. It's widely used 
+  among the community and it's mainly configured through
+  the `setup.py` and `Pipeline` files. 
 
-  Pip is a package manager, meaning that dependency updates
-  must be done manually. This will defeat the purpose of using
-  it for automation.
+- [**Poetry**](https://python-poetry.org/)
 
-- [Pipenv](https://pipenv.pypa.io/en/latest/)
-
-  The main differences between Pipenv and Poetry are that Poetry
-  has much faster install times and supports `pyproject.toml`,
-  which is the official Python file for dependency management (see
-  [PEP 518](https://www.python.org/dev/peps/pep-0518/#file-format)).
-
-
-
-### [Invoke](https://www.pyinvoke.org/)
-
-Invoke is our **task runner** of choice. It inherits a minimal yet
-powerful philosophy from GNU Make and is broadly used among the
-Python community.
-
-Some alternatives are:
-
-- [Pypyr](https://pypyr.io/docs/)
-
-  Pypyr uses pipelines defined in yaml. There are many differences
-  between these two, but the key for choosing one over the other
-  was being more used to Python and finding easier to work with
-  Invoke's approach.
-
-- [doit](https://pydoit.org/contents.html#)
-
-  _doit_ has quite a similar approach to Invoke and uses Python as
-  well. However, Invoke's community is much bigger, which usually
-  translates to more resources and easier troubleshooting.
+  Very similar to Pipenv, but with faster installation
+  time. Most importantly, Poetry supports setting dependencies 
+  via `pyproject.toml`, which is the official Python file for 
+  dependency management (see [PEP 518](https://www.python.org/dev/peps/pep-0518/#file-format)).
+  
+Mainly because of `pyproject.toml` support, we chose **Poetry** as
+our dependency manager.
 
 
- ### [Pytest](https://docs.pytest.org/en/latest/)
+### Task runner
 
- Pytest is **test framework** of choice. These were the criteria 
- used in the decision:
+A task runner in this project will serve two main purposes: 
+_automation_ and _replicability_. 
 
- - Well documented, preferably with a wide community behind it.
- - Already included in Python.
- - Ease of use.
- - Simplicity.
+The criteria for choosing one were the following:
+- Common within the Python community
+- Ease of use
+- Simplicity
 
-When searching for test frameworks, we searched
-for `python + [term]` and `python + [term] + stackoverflow`. These were
-the main resuls:
+The most common task runners in Python were:
 
-- Test frameworks
-  - [Pytest](https://docs.pytest.org/en/latest/)
-  - [Unittest](https://docs.python.org/3/library/unittest.html)
+- [**Pypyr**](https://pypyr.io/docs/)
+
+  Pypyr uses pipelines defined in yaml. As good as it might be,
+  we preferred something closer to Python syntax as it will be
+  easier to use in the long term.
+
+- [**doit**](https://pydoit.org/contents.html#)
+
+  _doit_ uses Python and has a quite simple and familiar 
+  structure because of that.
+  
+- [**Invoke**](https://www.pyinvoke.org/)
+
+  Invoke also uses Python and defining and running tasks is 
+  simple.
 
 
-Regarding test frameworks, Pytest and Unittest seem to provide similar
-functionality, specially when using them for basic testing, and their
-documenation looks equally good. Unittest is also built in Python,
-which is a major advantage. However, Pytest seems much more straightforward
-and intuitive than Unittest, with simple tests taking up fewer lines,
-which made us choose it over Unittest.
+_doit_ and Invoke seemed very similar to one another. When 
+looking at examples from their respective manuals, we found
+**Invoke** slightly simpler and cleaner, thus deciding on that
+one. 
 
-### [Unittest](https://docs.python.org/3/library/unittest.html)
 
-The same search strategy and criteria were used for finding and
+### Test framework
+
+A test framework will allow us to structure tests and execute 
+them comfortably.
+
+These were the considered criteria:
+- Common within the Python community
+- Included in Python
+- Ease of use
+- Simplicity
+
+When searching for test frameworks, we searched for `python + 
+[term]` and `python + [term] + stackoverflow`. These were the 
+main results:
+
+- [**Pytest**](https://docs.pytest.org/en/latest/)
+
+  Pytest is an external module for test management. It provides
+  detailed information on failed assertions and implements a 
+  simple way of writing tests.
+  
+- [**Unittest**](https://docs.python.org/3/library/unittest.html)
+
+  Unittest is a built-in module in Python that comes with many
+  assertion methods. It's a bit less intuitive than Pytest as
+  tests need to be inside a class that inherits from 
+  `unittest.TestCase`.
+
+Even though Unittest is already included in Python, we opted
+for Pytest for its simplicity.
+
+
+### Assertion library
+
+Assertion libraries essentially offer a range of assertion 
+methods to choose from when writing tests.
+
+The same search strategy and criteria were used for finding an
 assertion library. The most common results were:
 
-- Assertion libraries
-  - [Assertpy](https://pypi.org/project/assertpy/)
-  - [Unittest](https://docs.python.org/3/library/unittest.html)
-  - [The `assert` statement](https://docs.python.org/3/reference/simple_stmts.html#assert) (which is not really a library)
+- [**Assertpy**](https://pypi.org/project/assertpy/)
+  
+  Assertpy is an external assertion library. 
 
-We first discarded using Assertpy to use as few external libraries
-as possible. Unittest offers many tools although is not the simplest,
-as tests should be part of classes that inherit from `unittest.TestCase`.
-In any case, failed assertions from Unittest provided added information
-on why the condition failed, which will be useful in the future.
+- [**Unittest**](https://docs.python.org/3/library/unittest.html)
 
-To allow simplicity when needed, we'll be also using the `assert`
-statement from Python.
+  Unittest has many assertion methods with descriptive names,
+  making it easy to understand what's happening. As we said 
+  above, it's already built in Python.
+
+- [**The `assert` statement**](https://docs.python.org/3/reference/simple_stmts.html#assert) (which is not really a library)
+
+  As the name suggests, `assert` is just a Python statement
+  for basic assertions.
+
+We discarded using Assertpy to use as few external libraries
+as possible, leaving us with **Unittest** as our assertion library.
+we'll be also using the `assert` statement to allow simplicity
+when needed.
