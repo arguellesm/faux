@@ -47,8 +47,8 @@ Some alternatives are:
 
  ### [Pytest](https://docs.pytest.org/en/latest/)
 
- Pytest is both our **test framework** of
- choice. These were the criteria used in the decision:
+ Pytest is **test framework** of choice. These were the criteria 
+ used in the decision:
 
  - Well documented, preferably with a wide community behind it.
  - Already included in Python.
