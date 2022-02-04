@@ -65,62 +65,20 @@ class Article:
             raise ArticleValueError('An article must include a headline or content')
 
         if(len(headline) < globals.HEADLINE_MAX_SIZE):
-            self._headline = headline
+            self.headline = headline
         else:
             raise ArticleValueError('Headline cannot be larger than {}'.format(globals.HEADLINE_MAX_SIZE))
         
         if(globals.AUTHOR_MAX_LENGHT > len(author)):
-            self._author = author
+            self.author = author
         else:
             raise ArticleValueError('Author cannot be larger than {}'.format(globals.AUTHOR_MAX_LENGHT))
 
-        self._id = next(Article.id_iter)
-        self._content = content
-        self._topic = topic
-        self._source = source
+        self.id = next(Article.id_iter)
+        self.content = content
+        self.topic = topic
+        self.source = source
 
-
-    @property
-    def author(self):
-        """
-        Returns the author of the article.
-        """
-        return self._author
-    
-    @property
-    def content(self):
-        """
-        Returns the content of the article.
-        """
-        return self._content
-
-    @property
-    def source(self):
-        """
-        Returns the source of the article.
-        """
-        return self._source
-
-    @property
-    def topic(self):
-        """
-        Returns the topic of the article.
-        """
-        return self._topic
-
-    @property
-    def headline(self):
-        """
-        Returns the headline of the article.
-        """
-        return self._headline
-    
-    @property
-    def id(self):
-        """
-        Returns the id of the article.
-        """
-        return self._id
 
 
     def predict(self):
