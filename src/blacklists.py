@@ -1,10 +1,11 @@
 UNTRUSTED_SOURCES = {
-    "semh.org",
-    "bachoriginal.com",
-    "astrologiapsicologica.es",
-    "aepnl.com"
+    "semh.org" : 3,
+    "bachoriginal.com" : 4,
+    "astrologiapsicologica.es" : 4,
+    "aepnl.com" : 4
 }
 
 UNTRUSTED_AUTHORS = {
-    "Jane Doe"
+    "Jane Doe" : 2,
+    "John Doe" : 3
 }

@@ -79,6 +79,7 @@ class Article:
         self._topic = topic
         self._source = source
 
+
     @property
     def author(self):
         """
@@ -121,24 +122,69 @@ class Article:
         """
         return self._id
 
+
     def predict(self):
         """
-        Returns how misleading the article is.
+        Returns the author, source and content score indicating
+        how misleading the article is.
         """
 
-        author_score = 0
-        source_score = 0
+        author_score = self.rate_author()
+        source_score = self.rate_source()
+        content_score = self.rate_content()
 
-        # check author
+        return author_score, source_score, content_score
+
+
+    def rate_author(self):
+        """
+        Checks whether the author is listed as untrustworthy.
+        """
+
         if self.author and self.author in blacklists.UNTRUSTED_AUTHORS:
-            author_score = 1
+            author_score = blacklists.UNTRUSTED_AUTHORS[self.author]
+        else:
+            author_score = 0
 
-        # check source
-        if self.source and self.source in backlists.UNTRUSTED_SOURCES:
-            source_score = 1
+        return author_score
 
-        # check content
-        filename = os.path.dirname(__file__)+globals.MODEL_PATH
+
+    def rate_source(self):
+        """
+        Checks whether the source is listed as untrustworthy.
+        """
+        
+        if self.source and self.source in blacklists.UNTRUSTED_SOURCES:
+            source_score = blacklists.UNTRUSTED_SOURCES[self.source]
+        else:
+            source_score = 0
+
+        return source_score
+
+
+    def rate_content(self, debug=False):
+        """
+        Evaluates the likeliness of the content being fake.
+
+        Parameters
+        ----------
+        debug : bool, default=False
+            Will load a missing model for test purposes.
+
+        Raises
+        ------
+        ArticleDependencyError
+            Missing model dependencies.
+        CantLoadContentModelError
+            Couldn't load model.
+        ContentModelError
+            Model parameter error.
+        """
+        
+        if debug:
+            filename = os.path.dirname(__file__)+globals.DUMMY_MODEL_PATH
+        else:
+            filename = os.path.dirname(__file__)+globals.MODEL_PATH
         
         try:
             with open(filename, 'rb') as f:
@@ -146,11 +192,11 @@ class Article:
         except FileNotFoundError as e:
             raise(CantLoadContentModelError('Unable to load {}: {}'.format(filename, e)))
         except ModuleNotFoundError as e:
-            raise(ArticleDependenciesError('Missing module: {}'.format(e)))
+            raise(ArticleDependencyError('Missing module: {}'.format(e)))
 
         try:
             content_score = model.predict_proba([self.content])[0][0]
         except Exception as e:
             raise(ContentModelError('Wrong parameter: {}'.format(e)))
 
-        return author_score, source_score, content_score
+        return content_score
