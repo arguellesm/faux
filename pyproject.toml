@@ -9,6 +9,7 @@ license = "GPL-3.0"
 python = "^3.9"
 pylint = "^2.11.1"
 scikit-learn = "1.0.1"
+pytruth = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 invoke = "^1.6.0"
