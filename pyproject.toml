@@ -7,11 +7,11 @@ license = "GPL-3.0"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-invoke = "^1.6.0"
 pylint = "^2.11.1"
 scikit-learn = "1.0.1"
 
 [tool.poetry.dev-dependencies]
+invoke = "^1.6.0"
 pytest = "^6.2.5"
 
 [build-system]
