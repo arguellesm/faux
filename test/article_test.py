@@ -1,6 +1,6 @@
 import pytest
 from src.article import Article
-from src.article import ArticleValueError, ArticleDependencyError, CantLoadContentModelError, ContentModelError    
+from src.article import ArticleValueError, CantLoadContentModelError, ContentModelError    
 
 
 # test article
@@ -38,13 +38,24 @@ def test_predict_returns_three_values():
     assert len(article.predict()) == 3
 
 
-def test_predict_probability_between_0_and_1():
-    assert 0 <= article.predict()[2] <= 1
+def test_content_between_0_and_1():
+    assert 0 <= article.rate_content() <= 1
 
 
 def test_author_score_is_0():
-    assert article.predict()[0] == 0
+    assert article.rate_author() == 0
 
 
 def test_source_score_is_0():
-    assert article.predict()[1] == 0
+    assert article.rate_source() == 0
+
+
+def test_dummy_model_raises_cant_load_content_model_error_exception():
+    with pytest.raises(CantLoadContentModelError):
+        article.rate_content(debug=True)
+
+
+def test_corrupted_article_raises_content_model_error_exception():
+    article.content = 10
+    with pytest.raises(ContentModelError):
+        article.rate_content()
