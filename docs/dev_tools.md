@@ -104,25 +104,87 @@ for Pytest for its simplicity.
 Assertion libraries essentially offer a range of assertion 
 methods to choose from when writing tests.
 
-The same search strategy and criteria were used for finding an
-assertion library. The most common results were:
+The project doesn't have any specific needs regarding assertions, 
+but we expect the following from our assertion library:
+- To have a minimum of popularity, as that will be useful 
+for troubleshooting. We will be using Github starts to measure this,
+and won't consider tools that have less than 100.
+- To be a currently maintained project.
+- To be somehow close to natural language.
+- A plus for being a built0-in module from Python.
+
+We'll be discussing the following alternatives:
 
 - [**Assertpy**](https://pypi.org/project/assertpy/)
   
   Assertpy is an external assertion library. 
+  - It has quite a big community with over 300 stars on Github and 
+  several forks.
+  - It is maintained with more or less recent commits from 6 months ago.
+  - Assertions are easy to understand and resemble natural language:
+    ```python
+    assert_that(1 + 1).is_equal_to(2)
+    ``` 
+  - It's not a built-in module
+
+  Apart from that, Assertpy seems a bit popular and has been already 
+  used in other projects. For the sake of not using the same tools, we'll
+  be discarding this one.
 
 - [**Unittest**](https://docs.python.org/3/library/unittest.html)
 
-  Unittest has many assertion methods with descriptive names,
-  making it easy to understand what's happening. As we said 
-  above, it's already built in Python.
+  Unittest is Python's unit testing framework.
 
-- [**The `assert` statement**](https://docs.python.org/3/reference/simple_stmts.html#assert) (which is not really a library)
+  - Big community, plenty of information on Github. Since it's embedded 
+  in Python repository we won't be counting stars here.
+  - It is maintained as part of the Python project.
+  - Assertions look a bit more function-like than those of Assertpy:
+    ```python
+    self.assertEqual(1 + 1), 2)
+    ```
+  - It's a built-in module.
 
-  As the name suggests, `assert` is just a Python statement
-  for basic assertions.
+  Again, this has been used many times and we'll be avoiding it for that
+  reason. On top of that, Unittest has a particular way of approaching
+  tests, where a child class of `TestCase` is expected, making the process
+  a bit more sluggish.
 
-We discarded using Assertpy to use as few external libraries
-as possible, leaving us with **Unittest** as our assertion library.
-we'll be also using the `assert` statement to allow simplicity
-when needed.
+- [**Grappa**](https://github.com/grappa-py/grappa)
+
+  - Decently sized community with 129 stars and some forks.
+  - The project hasn't had any activity since over a year ago.
+  - Assertions have a different look than what's usually expected but 
+  they are easy to understand:
+    ```python
+    2 | should.be.equal.to(1 + 1)
+    ```
+  - Not a built-in module.
+
+  Grappa is fine for the most part, although the lack of recent activity 
+  is not the best.
+
+- [**Verify**](https://github.com/grappa-py/grappa)
+
+  - Only 67 starts on Github.
+  - No activity since 5 years ago.
+  - Quite natural looking assertions:
+    ```python
+    ensure(1 + 1).Equal(2)
+    ```
+
+  Discarded for the first two reasons.
+
+- [**Pytruth**](https://github.com/google/pytruth)
+
+  - Again, decently sized community with 132 stars and 25 forks.
+  - Lasts commits are from 11 months ago.
+  - Assertions are basicly the same as in Assertpy:
+    ```python
+    AssertThat(1 + 1).IsEqualTo(2)
+    ```
+  - Not a built-in module.
+
+We'll not be using Grappa for the lack of recent activity in the 
+project. Assertpy and Pytruth are the two best options, Assertpy being
+probably the best of them. However, because it has been common and 
+it's used in other projects, we'll be trying out Pytruth.
