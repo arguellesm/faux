@@ -26,4 +26,4 @@ jobs:
         run: pip install poetry && poetry install
 
       - name: run tests
-        run: inv test
+        run: poetry run inv test
