@@ -18,7 +18,7 @@ You can download the original dataset [here](https://github.com/EnyanDai/FakeHea
 ### Processing 
 
 The original dataset is not in CSV format and has many fields we are not 
-currently intereted in. We've extracted the following fields of interest and
+currently interested in. We've extracted the following fields of interest and
 turned it into a single `.csv` file (which is not included in this repository).
 
 If you want to generate that same `dataset.csv` file, you can do so runing 
