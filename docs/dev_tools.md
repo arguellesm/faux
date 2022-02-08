@@ -67,9 +67,9 @@ looking at examples from their respective manuals, we found
 one. 
 
 
-### Test framework
+### Test runner 
 
-A test framework will allow us to structure tests and execute 
+A test runner will allow us to structure tests and execute 
 them comfortably.
 
 These were the considered criteria:
@@ -78,7 +78,7 @@ These were the considered criteria:
 - Ease of use
 - Simplicity
 
-When searching for test frameworks, we searched for `python + 
+When searching for test runners, we searched for `python + 
 [term]` and `python + [term] + stackoverflow`. These were the 
 main results:
 
