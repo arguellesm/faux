@@ -15,7 +15,12 @@ that, we found that:
 
 With this information, we'll be testing the project
 on 3.8 and 3.9 whenever a PR is either opened or 
-reopened.
+reopened. The [**`setup-python`**](https://github.com/actions/setup-python)
+action is used to set up a version-specific Python 
+environment, in which the project is then built and 
+tested.
+
+Both Python versions are tested in parallel.
 
 
 ## GitLab CI/CD
