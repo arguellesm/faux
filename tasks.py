@@ -24,4 +24,4 @@ def test(c):
     Run Pytest tests.
     """
 
-    c.run('python -m pytest test')
+    c.run('pytest')
