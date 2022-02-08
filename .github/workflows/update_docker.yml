@@ -7,7 +7,7 @@ on:
       - poetry.lock
       - pyproject.toml
     branches:
-      - objetivo-5-test
+      - main
 
 jobs:
   update:  
