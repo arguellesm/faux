@@ -1,4 +1,4 @@
-from src import globals, blacklists
+from faux import globals, blacklists
 import itertools
 import pickle
 import os.path
