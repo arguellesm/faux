@@ -1,7 +1,7 @@
 import pytest
 from truth.truth import AssertThat
-from src.article import Article
-from src.article import ArticleValueError, CantLoadContentModelError, ContentModelError    
+from faux.article import Article
+from faux.article import ArticleValueError, CantLoadContentModelError, ContentModelError    
 
 
 # test article
