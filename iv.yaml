@@ -9,3 +9,5 @@ automatizar:
   orden: inv
 
 test: test/article_test.py
+
+CI: .gitlab-ci.yml
