@@ -1,8 +1,9 @@
 name: test python versions
 
 on:
-  pull_request:
-    types: [opened, reopened]
+  push:
+    branches:
+      - objetivo-6-test
 
 
 jobs:
