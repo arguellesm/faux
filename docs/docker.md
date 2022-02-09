@@ -28,14 +28,14 @@ the build takes too long, but faster build times are a plus.
 
 ## Options
 
-We'll be considering some official Python images as well as Debian
-and Ubuntu images. All images were found by searching 'python',
-'debian' and 'ubuntu' on [Docker Hub](https://hub.docker.com/).
+We'll be considering some official Python images as well as Ubuntu 
+images. All images were found by searching 'python' and 'ubuntu' 
+on [Docker Hub](https://hub.docker.com/).
 
 - `3.9-alpine`
 - `3.9-bullseye`
 - `3.9-slim`
-- `bullseye-slim`
+- `3.9-bullseye-slim`
 - `20.04`
 
 ## Comparisons
@@ -55,10 +55,10 @@ official version from each organization.
 ### Python 3.9
 
 Python 3.9 is already available in all Python images (`3.9-alpine`,
-`3.9-slim` and `3.9-bullseye`). 
+`3.9-slim`, `3.9-bullseye` and `3.9-bullseye-slim`). 
 
-Although it's not installed in `bullseye-slim` and `20.04`, it could 
-be installed through their package managers.
+Although it's not installed in `20.04`, it could be installed through 
+its package manager.
 
 ### Size
 
@@ -67,12 +67,55 @@ Python's `3.9-bullseye` was by far the biggest of them with 885MB. Python's
 smallest.
 
 ```
-python          3.9-alpine      29035fe3290e   28 minutes ago      48.3MB
-python          3.9-slim        8da5d5abf979   29 minutes ago       122MB
-python          3.9-bullseye    92db3217958c   29 minutes ago       885MB
-debian          bullseye-slim   7a8792605f8c   29 minutes ago      80.4MB
-ubuntu          20.04           54c9d81cbb44   30 minutes ago      72.8MB
+python          3.9-alpine          29035fe3290e   28 minutes ago      48.3MB
+python          3.9-slim            8da5d5abf979   29 minutes ago       122MB
+python          3.9-bullseye        92db3217958c   29 minutes ago       885MB
+python          3.9-bullseye-slim   7a8792605f8c   29 minutes ago      80.4MB
+ubuntu          20.04               54c9d81cbb44   30 minutes ago      72.8MB
 ```
+
+We also conducted a size tests with the Dockerfile needed to build the project.
+The Dockerfile used for Python images (except Alpine) is the one that can be 
+currently found here. For Ubuntu, we had to add the following lines before
+the `mkdir` command:
+
+```
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip
+```
+
+As for Alpine, we installed more packages as it didn't come with `gcc` nor `g++`
+(among others) and they were needed to manage the dependency set we currently have.
+This resulted in the following lines before the `mkdir` command:
+
+```
+RUN apk update && \
+    apk add gcc \
+    g++\
+    libc-dev \
+    libffi-dev \
+```
+
+We also changed `useradd` for `adduser`, as the first one isn't available in
+Alpine.
+
+Even after adding this, we still faced issues with `numpy` and BLAS/LAPACK 
+libraries. Because of this reason we weren't able to successfully build it
+and that's also why it doesn't appear in the results bellow.
+
+These are the sizes obtained with these Dockerfiles:
+
+```
+python       3.9-slim             189911089e91   29 seconds ago   511MB
+python       3.9-bullseye         b1500797ba20   31 seconds ago   1.3GB
+python       3.9-bullseye-slim    164e1c98f165   48 minutes ago   511MB
+ubuntu       20.04                a6f3597b527e   5 seconds ago    818MB
+```
+
+Considering these results we can see that `3.9-slim` and `3.9-bullseye-slim`
+are the smallest ones.
+
 
 ### Build time
 
@@ -90,12 +133,16 @@ sudo docker build --no-cache ubuntu         0,03s user 0,04s system 0% cpu 8,145
 ## Process of elimination and final choice
 
 We first decided to not consider `3.9-alpine` based on the issues found when
-researching. As for `3.9-bullseye`, it didn't have any major advantages when 
-compared to the rest and it had a significantly bigger size. Considering this, 
-we opted for not choosing that one either. 
+researching, and also the problems faced when designing a Dockerfile for it. 
+As for `3.9-bullseye`, it didn't have any major advantages when compared to 
+the rest and it had a significantly bigger size. Considering this, we opted 
+for not choosing that one either. 
 
 Stability and maintenance are equally good for the three last candidates. Build 
-time and size are better in `ubuntu` and `3.9-bullseye-slim`, while ready-to-go
-Python is available in `3.9-slim` and `3.9-bullseye-slim`. Given that, it seems
-that the best one overall is `3.9-bullseye-slim`, which will be using for the
-project.
+time and size are better in `3.9-slim` and `3.9-bullseye-slim`, while ready-to-go
+Python is also available in those two. Given that, it seems that the one of the
+best images might be `3.9-bullseye-slim`, as it similar in size and features 
+to `3.9-slim` but not as common of an image. 
+
+In any case, both would work equally well and we could consider creating multiple
+images in the future.
