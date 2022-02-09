@@ -10,4 +10,4 @@ automatizar:
 
 test: test/article_test.py
 
-CI: .gitlab-ci.yml
+CI: .github/workflows/test_python_versions.yml
