@@ -25,7 +25,7 @@ updated and refined to achieve the best possible outcome.
 
 ## Requirements
 
-- Python **3.5+**.
+- Python **3.8+**.
 
 ## Dependencies
 
@@ -70,10 +70,18 @@ inv check
 
 #### Running tests
 
-Tests are located int [test](test/) and we use Pytest to run them. You can do so with:
+Tests are located int [test](test/) and we use Pytest to run them. 
+
+You can run them locally with:
 
 ```
 inv test
+```
+
+Or you can run them inside a Docker container with:
+
+```
+inv docker
 ```
 
 ## Read the docs!
@@ -83,3 +91,4 @@ Feel free to read a bit more about the project:
 - [Users and user journey](docs/users.md)
 - [Development tools and why](docs/dev_tools.md)
 - [The model](model/) and [dataset used](data/).
+- [Base container decision](docs/docker.md)
