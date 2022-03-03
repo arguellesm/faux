@@ -1,3 +1,4 @@
+from cgitb import text
 import pandas as pd
 import json
 import os
@@ -14,21 +15,18 @@ def get_text(path):
 	return file['text']
 
 
-def get_author(path):
+def get_authors(path):
 	"""
 	Extract author(s) if there are any.
 	"""
 
 	with open(path) as f:
 		file = json.load(f)
-
-	if 'author' in file.keys():
-		author = file['author']
-
+		
 	if 'authors' in file.keys():
-		author = file['authors']
+		authors = file['authors']
 
-	return author
+	return authors
 
 
 def generate_df():
@@ -37,13 +35,13 @@ def generate_df():
 	"""
 
 	# json fields
-	headline 	= []
-	rating 		= []
-	text 		= []
-	source 		= []
-	o_title		= []
-	link 		= []
-	author  	= []
+	headlines = []
+	ratings = []
+	texts = []
+	sources = []
+	original_titles	= []
+	links = []
+	authors = []
 
 	# get articles
 	with open('dataset/reviews/HealthRelease.json') as f:
@@ -59,13 +57,13 @@ def generate_df():
 		if not os.path.exists(path):
 			continue
 
-		text.append(get_text(path))
-		author.append(get_author(path))
-		headline.append(i['title'])
-		source.append(i['news_source'])
-		o_title.append(i['original_title'])
-		link.append(i['link'])
-		rating.append(i['rating'])
+		texts.append(get_text(path))
+		authors.append(get_authors(path))
+		headlines.append(i['title'])
+		sources.append(i['news_source'])
+		original_titles.append(i['original_title'])
+		links.append(i['link'])
+		ratings.append(i['rating'])
 
 
 	# get history articles information
@@ -75,24 +73,24 @@ def generate_df():
 		if not os.path.exists(path):
 			continue
 
-		text.append(get_text(path))
-		author.append(get_author(path))
-		headline.append(i['title'])
-		source.append(i['news_source'])
-		o_title.append(i['original_title'])
-		link.append(i['link'])
-		rating.append(i['rating'])
+		texts.append(get_text(path))
+		authors.append(get_authors(path))
+		headlines.append(i['title'])
+		sources.append(i['news_source'])
+		original_titles.append(i['original_title'])
+		links.append(i['link'])
+		ratings.append(i['rating'])
 
 
 	# create pandas dataframe
 	df = pd.DataFrame({
-		'headline' 		: headline,
-		'author'  		: author,
-		'source' 		: source,
-		'original title': o_title,
-		'link' 			: link,
-		'text' 			: text,
-		'rating' 		: rating
+		'headline' 		: headlines,
+		'author'  		: authors,
+		'source' 		: sources,
+		'original title': original_titles,
+		'link' 			: links,
+		'text' 			: texts,
+		'rating' 		: ratings
 		})
 
 	# export to csv

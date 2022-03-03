@@ -1,7 +1,7 @@
 import pytest
 from truth.truth import AssertThat
-from src.article import Article
-from src.article import ArticleValueError, CantLoadContentModelError, ContentModelError    
+from faux.article import Article
+from faux.article import ArticleValueError, CantLoadContentModelError, ContentModelError    
 
 
 # test article
@@ -9,11 +9,11 @@ article = Article(headline='A simple headline', content='And a very short conten
 
 
 def test_can_create_object_only_headline():
-    assert Article(headline='A simple headline')
+    AssertThat(Article(headline='A simple headline')).IsTruthy()
 
 
 def test_can_create_object_only_content():
-    assert Article(content='And a very short content')
+    AssertThat(Article(content='And a very short content')).IsTruthy()
 
 
 def test_cant_create_invalid_object_no_headline_nor_content():
@@ -32,7 +32,7 @@ def test_cant_create_invalid_object_hempty_content_no_headline():
 
 
 def test_has_headline_or_content():
-    assert article.headline or article.content
+    AssertThat(article.headline or article.content).IsTruthy()
 
 
 def test_predict_returns_three_values():

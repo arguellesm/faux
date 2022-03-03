@@ -24,13 +24,4 @@ def test(c):
     Run Pytest tests.
     """
 
-    c.run('python -m pytest test')
-
-
-@task
-def docker(c):
-    """
-    Run Pytest tests inside docker container.
-    """
-
-    c.run('docker run -t -v `pwd`:/app/test arguellesm/faux')
+    c.run('pytest')
