@@ -7,3 +7,9 @@ entidad:
 automatizar:
   fichero: tasks.py
   orden: inv
+
+test: test/article_test.py
+
+CI: 
+  - .gitlab-ci.yml
+  - .github/workflows/test_python_versions.yml

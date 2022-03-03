@@ -16,3 +16,12 @@ def check(c, format='colorized'):
     files = ' '.join(glob.glob('./src/*.py'))
 
     c.run('pylint -E -f {} {}'.format(format, files))
+
+
+@task
+def test(c):
+    """
+    Run Pytest tests.
+    """
+
+    c.run('pytest')
