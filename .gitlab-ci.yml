@@ -1,0 +1,13 @@
+stages:          
+  - test
+
+image:
+    name: arguellesm/faux 
+    entrypoint: [""]
+
+unit-test-job:   
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'    
+  script:
+    - inv test
