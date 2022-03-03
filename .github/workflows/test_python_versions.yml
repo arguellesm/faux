@@ -1,0 +1,28 @@
+name: test python versions
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+
+jobs:
+  version-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.8' ]
+    name: python version ${{ matrix.python-version }} 
+    steps:
+      - name: checkout 
+        uses: actions/checkout@v2
+
+      - name: setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: build
+        run: pip install poetry && poetry install
+
+      - name: run tests
+        run: poetry run inv test
